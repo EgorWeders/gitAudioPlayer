@@ -5,8 +5,12 @@
             function play(){
                 var inputEl=document.getElementById("addrForm");
                 var audioEl=document.getElementById("audioControl");
+                 var rawCheckbox=document.getElementById("rawToogle");
                 audioEl.pause();
-                audioEl.src=inputEl.value+"?raw=true";
+                if(rawCheckbox.checked)
+                    audioEl.src=inputEl.value+"?raw=true";
+                else
+                  audioEl.src=inputEl.value;
                 audioEl.play();
             }
             function playUrl(url){
@@ -36,6 +40,12 @@
                     <input type="text" id="addrForm" name="git audio url" value="John" style="width:100%;">
                 </td>
             </tr>
+                <td>
+                    <label for="rawToogle">Add "?raw=true to url" ?</label>
+                    <input type="checkbox" id="rawToogle" name="rawToogle" checked />
+                </td>
+            </tr>
+
         </table>
     </body>
 </html>
