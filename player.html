@@ -5,25 +5,37 @@
             function play(){
                 var inputEl=document.getElementById("addrForm");
                 var audioEl=document.getElementById("audioControl");
-                 var rawCheckbox=document.getElementById("rawToogle");
+              
+                var rawCheckbox=document.getElementById("rawToogle");
                 audioEl.pause();
+                
+                //no nameparsing, just pray
+                var audioSrc=document.getElementById("audioSrcWav");
                 if(rawCheckbox.checked)
-                    audioEl.src=inputEl.value+"?raw=true";
+                    audioSrc.src=inputEl.value+"?raw=true";
                 else
-                  audioEl.src=inputEl.value;
+                    audioSrc.src=inputEl.value;
+                var audioSrc=document.getElementById("audioSrcMpeg");
+                if(rawCheckbox.checked)
+                    audioSrc.src=inputEl.value+"?raw=true";
+                else
+                    audioSrc.src=inputEl.value;
+                alert(audioSrc.src);
+                audioEl.load();
                 audioEl.play();
             }
             function playUrl(url){
                 var inputEl=document.getElementById("addrForm");
+                inputEl.value="";
                 inputEl.value=url;
-                play();
+                 play();
             }
             function initListener(){
                 const destination = document.getElementById("addrForm");
                 destination.addEventListener("paste", () => {
                 navigator.clipboard.readText().then(
                 (clipText) => (playUrl(clipText)))});
-            }
+            } 
 
         </script>
     </head>
@@ -32,7 +44,10 @@
         <table style="width:40%">
             <tr>
                 <td>
-                    <audio id="audioControl" controls style="width:100%;" onplay="play()"></audio>
+                    <audio id="audioControl" controls style="width:100%;" preload="metadata" autoplay>
+                         <source src="" id="audioSrcMpeg" type="audio/mpeg" /> 
+                        <source src="" id="audioSrcWav" type="audio/wav" />
+                    </audio>
                 </td>
             </tr>
             <tr>
@@ -45,7 +60,11 @@
                     <input type="checkbox" id="rawToogle" name="rawToogle" checked />
                 </td>
             </tr>
-
+             </tr>
+                <td>
+                    <input type="button" id="loadBtn" name="loadBtn" onclick="play()" value="Load"></input>
+                </td>
+            </tr>
         </table>
     </body>
 </html>
