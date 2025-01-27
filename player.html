@@ -29,19 +29,25 @@
                 var inputEl=document.getElementById("addrForm");
                 inputEl.value="";
                 inputEl.value=url;
-                 play();
+                play();
             }
-            function initListener(){
+            function initListeners(){
                 const destination = document.getElementById("addrForm");
                 destination.addEventListener("paste", () => {
                 navigator.clipboard.readText().then(
                 (clipText) => (playUrl(clipText)))});
+                    
+                destination.ondragenter= () => {destination.value="";};
+                destination.ondragenter= () => {destination.value="";};
+                destination.ondrop= (event) => {
+                    (playUrl(event.dataTransfer.getData("text")))};
+ 
             } 
 
         </script>
     </head>
     
-    <body onload="initListener()">
+    <body onload="initListeners()">
         <table style="width:40%">
             <tr>
                 <td>
@@ -53,7 +59,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="addrForm" name="git audio url" value="John" style="width:100%;">
+                    <input type="text" id="addrForm" name="git audio url" value="John" style="width:100%;" >
                 </td>
             </tr>
                 <td>
