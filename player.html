@@ -1,0 +1,41 @@
+
+<html>
+    <head>
+        <script>
+            function play(){
+                var inputEl=document.getElementById("addrForm");
+                var audioEl=document.getElementById("audioControl");
+                audioEl.pause();
+                audioEl.src=inputEl.value+"?raw=true";
+                audioEl.play();
+            }
+            function playUrl(url){
+                var inputEl=document.getElementById("addrForm");
+                inputEl.value=url;
+                play();
+            }
+            function initListener(){
+                const destination = document.getElementById("addrForm");
+                destination.addEventListener("paste", () => {
+                navigator.clipboard.readText().then(
+                (clipText) => (playUrl(clipText)))});
+            }
+
+        </script>
+    </head>
+    
+    <body onload="initListener()">
+        <table style="width:40%">
+            <tr>
+                <td>
+                    <audio id="audioControl" controls style="width:100%;" onplay="play()"></audio>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="addrForm" name="git audio url" value="John" style="width:100%;">
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
